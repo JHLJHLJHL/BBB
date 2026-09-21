@@ -329,8 +329,8 @@ export const season4: Season = {
       quotes: [
         {
           speaker: "월터 화이트",
-          en: "I am not in danger, Skyler. I am the danger. ... I am the one who knocks!",
-          ko: "나는 위험에 처한 게 아니야, 스카일러. 내가 위험이야. 문을 두드리는 게 나라고!",
+          en: "I am not in danger, Skyler. I am the danger. A guy opens his door and gets shot, and you think that of me? No. I am the one who knocks!",
+          ko: "난 위험에 처한 게 아니야, 스카일러. 내가 바로 위험 그 자체라고. 누군가 문을 열었다가 총에 맞는다고 해서, 내가 그 피해자일 것 같아? 아니. 난 문을 두드리는 사람이야!",
           context: "누가 집 문을 두드리러 올까 봐 무섭다는 아내에게 돌려주는 대답이다. 밈으로는 승리 선언처럼 소비되지만, 장면의 실제 온도는 다르다. 안심시키는 데 실패한 남자가 겁주는 쪽으로 방향을 트는 대목이고, 직후 스카일러는 아이를 데리고 집을 나간다.",
         },
       ],
