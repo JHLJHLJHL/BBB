@@ -30,10 +30,18 @@ jobs:
         with:
           enablement: true
 
+      # The repository holds the Next.js source as well as the built page, so
+      # the artifact is assembled explicitly. Uploading the repository root
+      # would publish the source tree alongside the site.
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp index.html _site/index.html
+
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
+          path: _site
 
       - name: Deploy to GitHub Pages
         id: deployment

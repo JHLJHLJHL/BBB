@@ -1,0 +1,208 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Local stacks only — no webfont fetch, so the app builds and runs offline
+       and the Korean body text falls back to whatever the OS ships. */
+    --font-sans: "Pretendard Variable", Pretendard, -apple-system,
+      BlinkMacSystemFont, "Apple SD Gothic Neo", "Segoe UI", "Malgun Gothic",
+      "Noto Sans KR", Roboto, sans-serif;
+    --font-serif: "Iowan Old Style", "Apple Garamond", Georgia, "Nanum Myeongjo",
+      "Noto Serif KR", "Batang", serif;
+    --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+      "Liberation Mono", monospace;
+
+    --background: 40 18% 96%;
+    --foreground: 30 8% 10%;
+
+    --card: 40 22% 98%;
+    --card-foreground: 30 8% 10%;
+
+    --popover: 40 22% 98%;
+    --popover-foreground: 30 8% 10%;
+
+    --primary: 30 8% 12%;
+    --primary-foreground: 40 25% 97%;
+
+    --secondary: 38 14% 90%;
+    --secondary-foreground: 30 8% 14%;
+
+    --muted: 38 12% 91%;
+    --muted-foreground: 30 5% 40%;
+
+    --accent: 38 14% 88%;
+    --accent-foreground: 30 8% 12%;
+
+    --destructive: 0 62% 42%;
+    --destructive-foreground: 40 25% 97%;
+
+    --border: 34 12% 82%;
+    --input: 34 12% 82%;
+    --ring: 30 8% 20%;
+
+    --paper: 40 24% 95%;
+    --paper-shade: 34 12% 86%;
+    --paper-line: 30 8% 22%;
+
+    --radius: 0.4rem;
+  }
+
+  .dark {
+    --background: 30 6% 8%;
+    --foreground: 40 16% 92%;
+
+    --card: 30 6% 11%;
+    --card-foreground: 40 16% 92%;
+
+    --popover: 30 6% 11%;
+    --popover-foreground: 40 16% 92%;
+
+    --primary: 40 16% 92%;
+    --primary-foreground: 30 6% 10%;
+
+    --secondary: 30 5% 16%;
+    --secondary-foreground: 40 16% 92%;
+
+    --muted: 30 5% 16%;
+    --muted-foreground: 36 8% 62%;
+
+    --accent: 30 5% 18%;
+    --accent-foreground: 40 16% 92%;
+
+    --destructive: 0 55% 45%;
+    --destructive-foreground: 40 16% 94%;
+
+    --border: 30 5% 22%;
+    --input: 30 5% 22%;
+    --ring: 40 12% 70%;
+
+    --paper: 30 6% 12%;
+    --paper-shade: 30 5% 18%;
+    --paper-line: 40 16% 88%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+  ::selection {
+    @apply bg-foreground/85 text-background;
+  }
+}
+
+@layer components {
+  /* Fibrous paper grain laid under the whole app. Two offset noise layers
+     keep the texture from reading as a repeating tile. */
+  .paper-grain {
+    position: relative;
+  }
+  .paper-grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    mix-blend-mode: multiply;
+    background-image:
+      radial-gradient(hsl(var(--foreground) / 0.055) 0.6px, transparent 0.6px),
+      radial-gradient(hsl(var(--foreground) / 0.035) 0.5px, transparent 0.5px);
+    background-size: 3px 3px, 7px 7px;
+    background-position: 0 0, 2px 3px;
+  }
+  .dark .paper-grain::before {
+    mix-blend-mode: screen;
+    opacity: 0.35;
+  }
+
+  /* Graphite underline that fills in on hover, like a ruler stroke. */
+  .pencil-underline {
+    background-image: linear-gradient(
+      to right,
+      hsl(var(--foreground) / 0.65),
+      hsl(var(--foreground) / 0.65)
+    );
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    transition: background-size 0.28s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+  .pencil-underline:hover,
+  .pencil-underline:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Hatching that sweeps in behind interactive cards on hover. */
+  .pencil-hatch {
+    position: relative;
+    isolation: isolate;
+  }
+  .pencil-hatch::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.22s ease-out;
+    background-image: repeating-linear-gradient(
+      -48deg,
+      hsl(var(--foreground) / 0.11) 0px,
+      hsl(var(--foreground) / 0.11) 1px,
+      transparent 1px,
+      transparent 5px
+    );
+  }
+  .pencil-hatch:hover::after,
+  .pencil-hatch:focus-visible::after,
+  .pencil-hatch[data-active="true"]::after {
+    opacity: 1;
+  }
+
+  .sketch-frame {
+    border: 1px solid hsl(var(--foreground) / 0.22);
+    box-shadow:
+      2px 2px 0 hsl(var(--foreground) / 0.06),
+      inset 0 0 0 1px hsl(var(--background));
+  }
+}
+
+@layer utilities {
+  .scrollbar-graphite {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--foreground) / 0.25) transparent;
+  }
+  .scrollbar-graphite::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-graphite::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--foreground) / 0.22);
+    border-radius: 999px;
+  }
+  .scrollbar-graphite::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
