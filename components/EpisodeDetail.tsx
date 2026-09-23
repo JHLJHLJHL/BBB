@@ -104,7 +104,7 @@ export function EpisodeDetail({ episode, onSelect }: EpisodeDetailProps) {
     episode.sketches.filter((s) => s.slot === slot);
 
   return (
-    <article className="mx-auto w-full max-w-[860px] px-6 py-12 sm:px-10 lg:py-16">
+    <article className="mx-auto w-full max-w-[860px] px-6 pb-12 pt-16 sm:px-10 sm:pt-12 lg:pb-16 lg:pt-16">
       <motion.header
         custom={0}
         initial="hidden"
